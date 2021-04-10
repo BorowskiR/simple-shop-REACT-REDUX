@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectedProduct } from '../actions/productAction';
 
 function ProductDetail() {
+  const product = useSelector((state) => state.product);
   const { id } = useParams();
   const dispatch = useDispatch();
-  console.log(id);
+  console.log(product);
 
   const fetchProductDetails = async () => {
     const response = await axios
@@ -17,8 +18,8 @@ function ProductDetail() {
   };
 
   useEffect(() => {
-    fetchProductDetails();
-  }, []);
+    if (id && id !== '') fetchProductDetails();
+  }, [id]);
 
   return (
     <div>
